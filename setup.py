@@ -8,6 +8,7 @@ with open("README.md") as f:
 setup(
     name="pip_login",
     version="0.0.1",
+    py_modules=["pip_login"],
     short_description="Utility to log into private pypi repositories",
     long_description=readme,
     long_description_content_type="text/markdown",
