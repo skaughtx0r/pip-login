@@ -6,13 +6,13 @@ with open("README.md") as f:
     readme = f.read()
 
 setup(
-    name="pip-login",
+    name="pip_login",
     version="0.0.1",
     short_description="Utility to log into private pypi repositories",
     long_description=readme,
     long_description_content_type="text/markdown",
     install_requires=["keyring", "prompt_toolkit", "pip>=19.2.1"],
-    entry_points={"console_scripts": ["pip-login = pip-login:main"]},
+    entry_points={"console_scripts": ["pip-login = pip_login:main"]},
     python_requires=">=3.6",
     classifiers=[
         "Intended Audience :: Developers",
