@@ -12,7 +12,7 @@ setup(
     short_description="Utility to log into private pypi repositories",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/skaughtx0r/pip-login"
+    url="https://github.com/skaughtx0r/pip-login",
     install_requires=["keyring", "prompt_toolkit", "pip>=19.2.1"],
     entry_points={"console_scripts": ["pip-login = pip_login:main"]},
     python_requires=">=3.6",
