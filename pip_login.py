@@ -103,7 +103,7 @@ def main():
             idx_url = config["global"]["extra-index-url"]
             if extra_index_url not in idx_url:
                 config["global"]["extra-index-url"] = f"{idx_url}\n{extra_index_url}"
-        if not os.path.exists(pip_conf_path):
+        if not os.path.exists(os.path.dirname(pip_conf_path)):
             os.makedirs(os.path.dirname(pip_conf_path))
         with open(pip_conf_path, "w+") as config_file:
             config.write(config_file)
