@@ -85,7 +85,7 @@ def main():
         else:
             appdata = os.environ.get("APPDATA")
             if appdata:
-                os.path.join(appdata, "pip", "pip.ini")
+                pip_conf_path = os.path.join(appdata, "pip", "pip.ini")
 
     if not parsed_url.username:
         parsed_url = parsed_url._replace(netloc=f"{username}@{netloc}")
