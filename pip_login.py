@@ -36,6 +36,13 @@ def main():
     parser.add_argument(
         "-p", "--password", type=str, default=None, help="The password."
     )
+    parser.add_argument(
+        "--plaintext",
+        action="store_true",
+        help="""** WARNING ** Use with caution:
+            Store credentials in plain text in the pip.conf, this is useful for
+            logging into a pip repository inside a docker container for CI builds.""",
+    )
 
     args = parser.parse_args()
 
@@ -64,7 +71,8 @@ def main():
     parsed_url = urlparse(url)
     netloc = parsed_url.netloc.split("@")[-1]
 
-    keyring.set_password(netloc, username, password)
+    if not args.plaintext:
+        keyring.set_password(netloc, username, password)
 
     pip_conf_path = os.environ.get("VIRTUAL_ENV")
     if platform.system() == "Linux":
@@ -87,7 +95,9 @@ def main():
             if appdata:
                 pip_conf_path = os.path.join(appdata, "pip", "pip.ini")
 
-    if not parsed_url.username:
+    if args.plaintext:
+        parsed_url = parsed_url._replace(netloc=f"{username}:{password}@{netloc}")
+    elif not parsed_url.username:
         parsed_url = parsed_url._replace(netloc=f"{username}@{netloc}")
 
     extra_index_url = parsed_url.geturl()
