@@ -1,5 +1,6 @@
 import os
 import platform
+from importlib.metadata import version, PackageNotFoundError
 from prompt_toolkit import prompt
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
@@ -8,7 +9,6 @@ from getpass import getpass
 from urllib.parse import urlparse
 from configparser import ConfigParser
 from argparse import ArgumentParser
-import pkg_resources
 import keyring
 
 
@@ -21,12 +21,12 @@ def main():
     history.load_history_strings()
 
     try:
-        version = pkg_resources.get_distribution(__name__).version
-    except pkg_resources.DistributionNotFound:
-        version = __name__ + " Unknown version"
+        pkg_version = version(__name__)
+    except PackageNotFoundError:
+        pkg_version = "Unknown version"
 
     parser = ArgumentParser(description="pip login")
-    parser.add_argument("--version", action="version", version=version)
+    parser.add_argument("--version", action="version", version=pkg_version)
     parser.add_argument(
         "url", nargs="?", type=str, default=None, help="The repository index URL."
     )
